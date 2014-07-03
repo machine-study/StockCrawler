@@ -1,2 +1,3 @@
 class StockReportInfoCrawler
+
 end
