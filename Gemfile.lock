@@ -24,6 +24,7 @@ GEM
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     i18n (0.6.9)
+    iconv (1.0.4)
     json (1.8.1)
     mechanize (2.7.3)
       domain_name (~> 0.5, >= 0.5.1)
@@ -64,6 +65,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   clockwork
+  iconv
   multi_json
   mysql2
   wombat (= 2.2.1)

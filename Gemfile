@@ -9,6 +9,7 @@ gem 'wombat', '2.2.1'
 gem 'multi_json'
 gem 'clockwork'
 gem 'activerecord'
+gem 'iconv'
 # gem 'delayed_job'
 # gem 'delayed_job_active_record', '~> 4.0.1'
 

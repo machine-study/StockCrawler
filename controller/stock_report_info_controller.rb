@@ -1,0 +1,3 @@
+class StockReportInfoController
+
+end
