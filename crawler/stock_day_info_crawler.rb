@@ -11,17 +11,22 @@ class StockDayInfoCrawler
   end
 
   def crawl_stock_day_info(url, industry)
+    begin
     page = @client.get(url, :headers => {'Content-Type' => 'text/plain; charset=gb2312'})
     result = Iconv.conv('utf-8', "gb2312", page.body).gsub(/([a-z]+):/, '"\1":')
     stocks_json = MultiJson.load(result)
     if result.include? "null" || stocks_json.length<=0
       return false
     end
-    for i in 0...sina_industries.length-1
+    for i in 0...stocks_json.length-1
       stocks_json[i]["industry"]=industry
     end
     stocks = StockShortTermInfo.create(stocks_json)
-    sleep(rand(3000)+1000)
+    sleep(rand(3)+1)
+    rescue Exception => e
+      STOCK_DAY_INFO_LOG.info "Error in crawl_stock_day_info:  "+e.message+"\n"+e.backtrace.join("\n")
+      return false
+    end
     true
   end
 end
