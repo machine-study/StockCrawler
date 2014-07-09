@@ -20,6 +20,7 @@ class StockDayInfoCrawler
     end
     for i in 0...stocks_json.length-1
       stocks_json[i]["industry"]=industry
+      stocks_json[i]["ticktime"]=Time.parse(stocks_json[i]["ticktime"])
     end
     stocks = StockShortTermInfo.create(stocks_json)
     sleep(rand(3)+1)
