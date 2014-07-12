@@ -20,7 +20,9 @@ class StockDayInfoController
   def dispatch_url
     begin
       STOCK_DAY_INFO_LOG.info "start to dispatch url tasks"
-      stock_day_info_crawler = StockDayInfoCrawler.new(Mechanize.new)
+      agent =Mechanize.new
+      agent.user_agent_alias = 'Linux Mozilla'
+      stock_day_info_crawler = StockDayInfoCrawler.new(agent)
       industries_json = crawlIndustries
       sina_industries = industries_json[1][0][1][0][1]
       for i in 0...sina_industries.length-1

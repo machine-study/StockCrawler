@@ -1,0 +1,10 @@
+development:
+  sessions:
+    default:
+
+      hosts:
+        - localhost:27017
+
+      database: StockInfo
+      username: root
+      password: 123456
