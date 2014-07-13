@@ -1,3 +1,3 @@
 require "active_record"
-class BalanceSheetReportStockLongTermInfo< ActiveRecord::Base
+class BalanceSheetReport< ActiveRecord::Base
 end

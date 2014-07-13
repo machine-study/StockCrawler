@@ -1,0 +1,101 @@
+class CreateCashFlowReports < ActiveRecord::Migration
+  def change
+    create_table :cash_flow_reports do |t|
+      t.string :code
+      t.string :name
+      t.string :industry
+      t.time :report_date #报表日期
+      t.float :cash_flows_from_operation_activities
+      t.float :customer_deposits_and_interbank_deposit_payment_net_increase
+      t.float :net_increase_in_borrowing_from_the_central_bank
+      t.float :net_increase_in_funds_borrowed_from_other_financial_institutions
+      t.float :received_the_original_contract_of_insurance_premium_cash
+      t.float :receive_reinsurance_business_net_cash
+      t.float :insured_savings_and_investment_fund_net_increase
+      t.float :disposal_of_tradable_financial_asset_net_increase
+      t.float :interest_fee_and_commission_in_cash
+      t.float :loans_from_other_banks_increase
+      t.float :repurchase_net_increase_business_financing
+      t.float :refunds_of_taxes
+      t.float :other_related_to_business_activities_of_cash_received
+      t.float :cash_inflows_from_operating_activities
+      t.float :cash_paid_for_goods_purchased_and_labor_services_received
+      t.float :customer_loans_and_advances_net_increase
+      t.float :for_the_central_bank_and_trade_net_increase
+      t.float :original_insurance_contract_claims_payment_in_cash
+      t.float :pay_the_interest_charges_and_commission_in_cash
+      t.float :cash_dividend_payment_policy
+      t.float :Cash_paid_to_employee_and_for_employee
+      t.float :tax_payments
+      t.float :other_cash_payment_related_to_operating_activities
+      t.float :Cash_outflow_for_operating_activities
+      t.float :net_amount_of_cash_flow_that_the_business_activities_generate
+      t.float :Cash_received_form_return_of
+      t.float :Obtain_investment_income_received_in_cash
+      t.float :disposal_fixed_intangible_assets_other_long_term_assets_net_cash
+      t.float :net_cash__from_disposal_of_subsidiaries_other_business_entities
+      t.float :Other_cash_received_relating_to_investing_activities
+      t.float :Reduce_cash_pledge_and_deposit_received
+      t.float :Cash_inflow_from_investment_activities
+      t.float :construction_of_fixed_intangible_other_long_term_assets__cash
+      t.float :Cash_paid_to_acquire_investments
+      t.float :the_pledge_loan_net_increase
+      t.float :net_cash_for_acquisition_subsidiaries_other_business_entities
+      t.float :Other_cash_payments_relating_to_investing_activities
+      t.float :Increase_the_pledge_and_the_deposit_paid_by_cash
+      t.float :Cash_outflow_for_investment_activities
+      t.float :Net_investment_activities_generated_cash_flow
+      t.float :Receipts_from_equity_securities
+      t.float :subsidiary_minority_shareholders_investment_cash_received
+      t.float :Receipts_from_loan
+      t.float :The_cash_that_received_to_issue_bonds
+      t.float :Cash_received_relating_to_other_financing_activities
+      t.float :Cash_inflow_from_financing_activities
+      t.float :Payment_for_debt
+      t.float :Payment_for_dividend_and_interest
+      t.float :Payment_for_other_finance_activites
+      t.float :Cash_outflow_for_financing_activities
+      t.float :The_net_cash_flow_generated_by_financing_activities
+      t.float :impact_of_exchange_rate_movements_of_cash_cash_equivalents
+      t.float :Net_increase_in_cash_and_cash_equivalents
+      t.float :The_beginning_balance_of_cash_and_cash_equivalents
+      t.float :The_final_balance_of_cash_and_cash_equivalents
+      t.float :Net_profit
+      t.float :Minority_Interest
+      t.float :Unrecognized_investment_losses
+      t.float :Property_depreciation_preparation
+      t.float :fixed_assets_oil_gas_produmaterial_depreciation
+      t.float :Amortisation_of_intangible_assets
+      t.float :Amortisation_of_long_term_deferred_expenses
+      t.float :Deferred_and_prepaid_expenses_decrease
+      t.float :Accrued_expense_increase
+      t.float :disposal_of_fixed_intangible_other_long_term_assets_loss
+      t.float :Losses_on_write_off_of_fixed_assets
+      t.float :Loss_from_Fair_Value_Change
+      t.float :Deferred_revenue_increase
+      t.float :Anticipation_liabilities
+      t.float :financial_expenses
+      t.float :investment_loss
+      t.float :Deferred_tax_assets
+      t.float :Deferred_income_tax_liabilities
+      t.float :The_decrease_of_inventory
+      t.float :A_drop_in_business_receivables
+      t.float :Business_to_cope_with_the_increase_of_the_project
+      t.float :Completed_yet_settlement_of_decrease
+      t.float :Already_settlement_unfinished_increase
+      t.float :other
+      t.float :cash_flows_generated_from_operating_activities
+      t.float :Conversion_of_debt_into_capital
+      t.float :Convertible_bonds_matured_within_a_year
+      t.float :fixed_assets_financed_by_leasing
+      t.float :The_ending_balance_of_cash
+      t.float :The_beginning_balance_of_cash
+      t.float :The_ending_balance_of_cash_equivalents
+      t.float :The_beginning_balance_of_cash
+      t.float :The_beginning_balance_of_cash_equivalents
+      t.timestamps
+    end
+    add_index :cash_flow_reports, [:code, :report_date], :unique => true
+
+  end
+end

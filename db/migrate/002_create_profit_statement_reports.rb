@@ -2,12 +2,14 @@ class CreateProfitStatementReports < ActiveRecord::Migration
   def change
     create_table :profit_statement_reports do |t|
       t.string :code
+      t.string :name
+      t.string :industry
       t.time :report_date  #报表日期
       t.float :gross_revenue #一、营业总收入
       t.float :operating_income #营业收入
       t.float :interest_income #利息收入
       t.float :earned_premium #已赚保费
-      t.float  :fee_and_commission_income #手续费及佣金收入
+      t.float :fee_and_commission_income #手续费及佣金收入
       t.float :real_estate_sales #房地产销售收入
       t.float :other_operating_revenue #其他业务收入
       t.float :total_operating_cost #二、营业总成本
