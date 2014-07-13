@@ -4,7 +4,7 @@ class CreateBalanceSheetReport < ActiveRecord::Migration
       t.string :code
       t.string :name
       t.string :industry
-      t.time :report_date #报表日期
+      t.timestamp :report_date #报表日期
       t.float :cash_and_cash_equivalents
       t.float :deposit_reservation_for_balance
       t.float :loans_to_others_banks

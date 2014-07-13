@@ -16,7 +16,7 @@ class CreateStockShortTermInfos < ActiveRecord::Migration
       t.float :low
       t.integer :volume
       t.float :amount
-      t.time :ticktime
+      t.timestamp :ticktime
       t.float :per
       t.float :pb
       t.float :mktcap

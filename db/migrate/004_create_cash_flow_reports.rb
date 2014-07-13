@@ -4,7 +4,7 @@ class CreateCashFlowReports < ActiveRecord::Migration
       t.string :code
       t.string :name
       t.string :industry
-      t.time :report_date #报表日期
+      t.timestamp :report_date #报表日期
       t.float :cash_flows_from_operation_activities
       t.float :customer_deposits_and_interbank_deposit_payment_net_increase
       t.float :net_increase_in_borrowing_from_the_central_bank
@@ -60,8 +60,8 @@ class CreateCashFlowReports < ActiveRecord::Migration
       t.float :Net_increase_in_cash_and_cash_equivalents
       t.float :The_beginning_balance_of_cash_and_cash_equivalents
       t.float :The_final_balance_of_cash_and_cash_equivalents
-      t.float :Net_profit
-      t.float :Minority_Interest
+      t.float :net_profit
+      t.float :minority_interest
       t.float :Unrecognized_investment_losses
       t.float :Property_depreciation_preparation
       t.float :fixed_assets_oil_gas_produmaterial_depreciation

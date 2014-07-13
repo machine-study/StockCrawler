@@ -4,7 +4,7 @@ class CreateProfitStatementReports < ActiveRecord::Migration
       t.string :code
       t.string :name
       t.string :industry
-      t.time :report_date  #报表日期
+      t.timestamp :report_date  #报表日期
       t.float :gross_revenue #一、营业总收入
       t.float :operating_income #营业收入
       t.float :interest_income #利息收入
@@ -27,7 +27,7 @@ class CreateProfitStatementReports < ActiveRecord::Migration
       t.float :business_tariff_and_annex #营业税金及附加
       t.float :sales_costs #销售费用
       t.float :management_cost #管理费用
-      t.float :finance_charges #财务费用
+      t.float :financial_expenses #财务费用
       t.float :asset_impairment_loss #资产减值损失
       t.float :changes_in_the_fair_value_earnings #公允价值变动收益
       t.float :investment_income #投资收益
