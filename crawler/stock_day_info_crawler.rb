@@ -2,8 +2,7 @@ require 'wombat'
 require 'mechanize'
 require 'multi_json'
 require 'iconv'
-require '../model/stock_short_term_info'
-require '../db_connect'
+
 class StockDayInfoCrawler
   # attr_accessor :url,:industry
   def initialize(client)

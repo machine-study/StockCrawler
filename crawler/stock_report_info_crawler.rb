@@ -1,8 +1,7 @@
 require 'wombat'
 require 'open-uri'
 require 'multi_json'
-require '../model/profit_statement_report'
-require '../db_connect'
+
 # http://money.finance.sina.com.cn/corp/go.php/vFD_ProfitStatement/stockid/600079/ctrl/part/displaytype/4.phtml
 ["vFD_BalanceSheet", "vFD_ProfitStatement", "vFD_CashFlow"]
 class StockReportInfoCrawler

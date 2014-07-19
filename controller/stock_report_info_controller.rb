@@ -2,30 +2,29 @@ require 'require_all'
 require '../crawler/stock_report_info_crawler'
 require_all '../model/*.rb'
 require '../util/constant'
+require '../db_connect'
 require 'logger'
 require 'yaml'
 class StockReportInfoController
   REPORT_TYPE=["vFD_BalanceSheet", "vFD_ProfitStatement", "vFD_CashFlow"]
 
-  puts Constant::PROJECT_ROOT+'/config/report_property.yml'
   REPORT_NAME_MAP=YAML.load(File.open(Constant::PROJECT_ROOT+'/config/report_property.yml'))
-  puts REPORT_NAME_MAP
-  puts "ok"
 
 
   def get_stocks
-    StockShortTermInfo.select("code,name,industry").distinct
+    StockShortTermInfo.select("code,name,industry").distinct.offset(2070)
   end
 
   def dispatch_tasks
     stocks = get_stocks
+    puts stocks.length
     stock_report_info_crawler = StockReportInfoCrawler.new
     stocks.each do |stock|
       begin
         next if stock.name.include? '银行'
         REPORT_TYPE.each do |type|
           begin
-            for year in 2006...2015
+            for year in 2006...2014
               begin
                 stock_array = Array.new
                 url = "http://vip.stock.finance.sina.com.cn"

@@ -1,6 +1,6 @@
 require '../crawler/stock_day_info_crawler'
 require 'logger'
-
+require '../db_connect'
 class StockDayInfoController
   def crawlIndustries
     STOCK_DAY_INFO_LOG.info "start to crawlIndustries"
