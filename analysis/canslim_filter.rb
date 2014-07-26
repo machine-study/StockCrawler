@@ -69,6 +69,12 @@ class CanslimFilter
     end
     stock_analysis_array.sort!{|x,y|y.annual_earnings_increase<=>x.annual_earnings_increase}
   end
+
+  def s_filter
+      
+  end
+
+
 end
 
 # STOCK_DAY_INFO_LOG=Logger.new(Constant::PROJECT_ROOT+'/logs/canslim_filter.log', 0, 10 * 1024 * 1024)
