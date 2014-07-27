@@ -26,7 +26,7 @@ class CanslimFilter
         STOCK_DAY_INFO_LOG.info result
       end
     end
-    stock_analysis_array.sort!{|x,y|y.current_quarterly_earnings<=>x.current_quarterly_earnings}
+    stock_analysis_array.sort! { |x, y| y.current_quarterly_earnings<=>x.current_quarterly_earnings }
   end
 
   def a_filter(year_ago)
@@ -67,11 +67,18 @@ class CanslimFilter
       end
 
     end
-    stock_analysis_array.sort!{|x,y|y.annual_earnings_increase<=>x.annual_earnings_increase}
+    stock_analysis_array.sort! { |x, y| y.annual_earnings_increase<=>x.annual_earnings_increase }
   end
 
   def s_filter
-      
+  end
+
+  def l_check
+
+  end
+
+  def i_check
+
   end
 
 
