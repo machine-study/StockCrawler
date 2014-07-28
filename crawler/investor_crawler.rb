@@ -8,7 +8,7 @@ class InvestorCrawler
     @client=client
   end
 
-  # from dongfang
+  # from dongfang  http://data.eastmoney.com/executive/xml/000793.xml
   def crawl_manage_investors(base_url, path)
     begin
       manage_investors_hash = Wombat.crawl do
@@ -26,7 +26,7 @@ class InvestorCrawler
     manage_investors_hash
   end
 
-  #from dongfang
+  #from dongfang  http://data.eastmoney.com/zlsj/detail/201406/sh601318.html
   def crawl_institution_investors(base_url, path)
     institution_investors_hash = nil
     begin
@@ -49,6 +49,6 @@ agent.user_agent_alias = 'Linux Mozilla'
 invest_c = InvestorCrawler.new(agent)
 # hash = invest_c.crawl_institution_investors('http://data.eastmoney.com', '/zlsj/detail/201406/sh601318.html')
 # puts hash.to_s
-hash = invest_c.crawl_manage_investors('http://data.eastmoney.com', '/executive/xml/6016780.xml')
+hash = invest_c.crawl_manage_investors('http://data.eastmoney.com', '/executive/xml/000793.xml')
 puts hash.to_s
 

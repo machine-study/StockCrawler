@@ -22,7 +22,8 @@ class StockReportInfoController
         next if stock.name.include? '银行'
         REPORT_TYPE.each do |type|
           begin
-            for year in 2006...2014
+            # for year in 2006...2015
+              for year in 2014...2015
               begin
                 stock_array = Array.new
                 url = "http://vip.stock.finance.sina.com.cn"
@@ -32,7 +33,8 @@ class StockReportInfoController
                 # puts stock_report_json
                 sleep(rand(3)+1)
                 stock_report_json.each do |elem|
-                  for i in 0...elem["datas"].length
+                  # for i in 0...elem["datas"].length
+                    for i in 0...1
                     if stock_array[i]==nil
                       stock_array[i]=Hash.new
                       stock_array[i]["code"]=stock.code
