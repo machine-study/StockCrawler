@@ -1,6 +1,6 @@
-class CreateInvestors
+class CreateInvestors< ActiveRecord::Migration
   def change
-    create_tab :investors do |i|
+    create_table :investors do |i|
       i.string :stock_code
       i.string :stock_name
       i.string :stock_industry
@@ -16,7 +16,7 @@ class CreateInvestors
       i.integer :shares_value_change
       i.float :ratio_to_net_value
     end
-    add_index :stock_short_term_infos, [:code, :ticktime], :unique => true
+    add_index :investors, [:stock_code, :name], :unique => true
 
   end
 end

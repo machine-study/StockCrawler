@@ -70,11 +70,17 @@ class CanslimFilter
     stock_analysis_array.sort! { |x, y| y.annual_earnings_increase<=>x.annual_earnings_increase }
   end
 
+  def n_filter
+
+  end
+
   def s_filter
   end
 
-  def l_check
-
+  def l_filter(report_time)
+    stocks = StockLongTermService.get_stocks_by_time(report_time)
+    length = 0.2*stocks.length
+    stocks[0,length]
   end
 
   def i_check

@@ -13,7 +13,9 @@ class CanslimReport
     a_hash = FilterCollect.array_to_hash(canslim_filter.a_filter(5))
     c_hash = FilterCollect.array_to_hash(canslim_filter.c_filter("2014-03-31 00:00:00", "2013-03-31 00:00:00"))
     roe_dar_hash = FilterCollect.array_to_hash(OtherBasicFilter.new.roe_dar_filter)
-    array<<c_hash<<a_hash<<roe_dar_hash
+    learders_hash = FilterCollect.array_to_hash(canslim_filter.l_filter("2014-07-30 00:00:00"))
+
+    array<<c_hash<<a_hash<<roe_dar_hash<<learders_hash
     result = filter_collect.filter_combine_result(array)
     CANSLIM_LOG.info "these are filter combine result below:code     name            industry                annual_earnings_increase        current_quarterly_earnings              roe                      dar"
     agent =Mechanize.new

@@ -15,5 +15,6 @@ class CreateStockLongTermInfos < ActiveRecord::Migration
       t.timestamp :report_time
       t.timestamps
     end
-    add_index :stock_long_term_infos, [:code, :period, :info_update_time], :unique => true
+    add_index :stock_long_term_infos, [:code, :period, :report_time], :unique => true
   end
+end

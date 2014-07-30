@@ -39,6 +39,7 @@ class StockReportInfoController
                       stock_array[i]=Hash.new
                       stock_array[i]["code"]=stock.code
                       stock_array[i]["name"]=stock.name
+                      stock_array[i]["symbol"]=stock.symbol
                       stock_array[i]["industry"]=stock.industry
                     end
                     next if elem["name"].rstrip.empty?

@@ -23,20 +23,26 @@ class StockLongTermInfoController
 
   def dispatch_url
     begin
-      stock_long_term_info_crawler = StockLongTermInfoController.new
+      stock_long_term_info_crawler = StockLongTermInfoCrawler.new
       helper_hash = crawl_date_pagecount('http://datainfo.stock.hexun.com', '/shgs/hqsj/jdtj.aspx?selectedItem=newPrice&page=1&indexTable=3690&selectedDate=DESC')
       for i in 1...helper_hash['page_count']+1
         begin
+          STOCK_LONG_TERM_INFO_LOG.info  "start to crawl url of page "+i.to_s
           url='http://datainfo.stock.hexun.com'
           path='/shgs/hqsj/jdtj.aspx?selectedItem=newPrice&page='+i.to_s+'&indexTable=3690&selectedDate=DESC'
-          stock_hash = stock_long_term_info_crawler.crawl_date_pagecount(url, path)
+          stock_hash = stock_long_term_info_crawler.crawl_stock_long_term_info(url,path,helper_hash["report_date"],365)
           StockLongTermInfo.create(stock_hash)
+          STOCK_LONG_TERM_INFO_LOG.info  "finish crawling url of page "+i.to_s
         rescue Exception => e
-          STOCK_LONG_TERM_INFO_LOG.info "Error in crawl_stock_long_term_info:  "+e.message+"\n"+e.backtrace.join("\n")
+          STOCK_LONG_TERM_INFO_LOG.error "Error in crawl_stock_long_term_info:  "+e.message+"\n"+e.backtrace.join("\n")
         end
       end
     rescue Exception => e
-      STOCK_LONG_TERM_INFO_LOG.info "Error in crawl_stock_long_term_info:  "+e.message+"\n"+e.backtrace.join("\n")
+      STOCK_LONG_TERM_INFO_LOG.error "Error in crawl_stock_long_term_info:  "+e.message+"\n"+e.backtrace.join("\n")
     end
   end
 end
+
+STOCK_LONG_TERM_INFO_LOG=Logger.new(Constant::PROJECT_ROOT+'/logs/stock_long_term_info.log', 0, 10 * 1024 * 1024)
+stock_long_term_controller =  StockLongTermInfoController.new
+stock_long_term_controller.dispatch_url

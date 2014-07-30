@@ -14,6 +14,8 @@ class FilterCollect
         if result.include? k
           result[k].current_quarterly_earnings =v.current_quarterly_earnings if v.current_quarterly_earnings!=nil
           result[k].annual_earnings_increase =v.annual_earnings_increase if v.annual_earnings_increase!=nil
+          result[k].changepercent =v.changepercent if v.changepercent!=nil
+
           result[k].roe =v.roe if v.roe!=nil
           result[k].dar =v.dar if v.dar!=nil
         else

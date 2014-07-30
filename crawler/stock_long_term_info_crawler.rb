@@ -4,7 +4,7 @@ require '../util/constant'
 class StockLongTermInfoCrawler
 
 #from hexun  http://datainfo.stock.hexun.com/shgs/hqsj/jdtj.aspx?selectedItem=newPrice&page=1&indexTable=3690&selectedDate=DESC
-  def crawl_stock_long_term_info(base_url, path)
+  def crawl_stock_long_term_info(base_url, path, report_time, period)
     begin
       stocks_hash = Wombat.crawl do
         base_url base_url
@@ -21,19 +21,21 @@ class StockLongTermInfoCrawler
           amplitude "xpath=./td[8]"
           high "xpath=./td[9]"
           low "xpath=./td[10]"
-          # report_time report_time
-          # period period
+          report_time "#{report_time}"
+          period "#{period}"
         end
       end
+
+      sleep(rand(3)+1)
     rescue Exception => e
       STOCK_LONG_TERM_INFO_LOG.info "Error in crawl_stock_day_info:  "+e.message+"\n"+e.backtrace.join("\n")
     end
-    stocks_hash
+    stocks_hash["stockinfos"]
   end
 end
 
-STOCK_LONG_TERM_INFO_LOG=Logger.new(Constant::PROJECT_ROOT+'/logs/stock_long_term_info.log', 0, 10 * 1024 * 1024)
-
-stock_long_term_info_crawler = StockLongTermInfoCrawler.new
-hash = stock_long_term_info_crawler.crawl_stock_long_term_info('http://datainfo.stock.hexun.com', '/shgs/hqsj/jdtj.aspx?selectedItem=newPrice&page=1&indexTable=3690&selectedDate=DESC')
-puts hash
+# STOCK_LONG_TERM_INFO_LOG=Logger.new(Constant::PROJECT_ROOT+'/logs/stock_long_term_info.log', 0, 10 * 1024 * 1024)
+#
+# stock_long_term_info_crawler = StockLongTermInfoCrawler.new
+# hash = stock_long_term_info_crawler.crawl_stock_long_term_info('http://datainfo.stock.hexun.com', '/shgs/hqsj/jdtj.aspx?selectedItem=newPrice&page=1&indexTable=3690&selectedDate=DESC', "2014-07-21 00:00:00", 365)
+# puts hash
