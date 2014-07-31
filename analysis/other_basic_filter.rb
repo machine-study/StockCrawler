@@ -11,10 +11,10 @@ class OtherBasicFilter
     stock_analysis_array = Array.new
     BalanceSheetReport.select("id,code,industry,report_date,name,total_liabilities,shareholders_equity_combined,liabilities_and_shareholders_equity_in_total").where("report_date=?", last_year).find_each do |b_stock|
       dar = b_stock.total_liabilities/b_stock.liabilities_and_shareholders_equity_in_total
-      if dar<0.5
+      if dar<0.6
         ProfitStatementReport.select("id,code,industry,report_date,name,net_profit").where("report_date=? and code=?", last_year, b_stock.code).find_each do |p_stock|
           roe = p_stock.net_profit/b_stock.shareholders_equity_combined
-          if roe>0.15
+          if roe>0.035
             stock_analysis = StockAnalysis.new
             stock_analysis.code = p_stock.code
             stock_analysis.name = p_stock.name

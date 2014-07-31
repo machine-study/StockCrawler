@@ -15,6 +15,7 @@ class FilterCollect
           result[k].current_quarterly_earnings =v.current_quarterly_earnings if v.current_quarterly_earnings!=nil
           result[k].annual_earnings_increase =v.annual_earnings_increase if v.annual_earnings_increase!=nil
           result[k].changepercent =v.changepercent if v.changepercent!=nil
+          result[k].rs =v.rs if v.rs!=nil
 
           result[k].roe =v.roe if v.roe!=nil
           result[k].dar =v.dar if v.dar!=nil
@@ -24,7 +25,7 @@ class FilterCollect
       end
 
     end
-    result.delete_if { |k, v| v==nil||v.current_quarterly_earnings==nil||v.annual_earnings_increase==nil||v.roe==nil||v.dar==nil }
+    result.delete_if { |k, v| v==nil||v.current_quarterly_earnings==nil||v.annual_earnings_increase==nil||v.roe==nil||v.dar==nil||v.rs==nil }
     result
   end
 

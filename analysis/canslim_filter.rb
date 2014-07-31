@@ -4,6 +4,7 @@ require '../util/constant'
 require '../util/time_util'
 require 'logger'
 require '../db_connect'
+require '../service/stock_long_term_service'
 
 class CanslimFilter
   def c_filter(this_quarter, last_year_quarter)
@@ -80,7 +81,20 @@ class CanslimFilter
   def l_filter(report_time)
     stocks = StockLongTermService.get_stocks_by_time(report_time)
     length = 0.2*stocks.length
-    stocks[0,length]
+    stock_analysis_array = Array.new
+    sub_stocks = stocks[0, length]
+    for i in 0...sub_stocks.length
+      stock_analysis = StockAnalysis.new
+      stock_analysis.code = sub_stocks[i].code
+      stock_analysis.name = sub_stocks[i].name
+      stock_analysis.changepercent = sub_stocks[i].changepercent
+      stock_analysis.rs =(stocks.length-i)*100.0/stocks.length
+
+      stock_analysis_array<<stock_analysis
+
+    end
+    stock_analysis_array
+
   end
 
   def i_check
