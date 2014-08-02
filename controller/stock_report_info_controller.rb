@@ -11,19 +11,22 @@ class StockReportInfoController
   REPORT_TYPE=["vFD_BalanceSheet", "vFD_ProfitStatement", "vFD_CashFlow"]
 
   REPORT_NAME_MAP=YAML.load(File.open(Constant::PROJECT_ROOT+'/config/report_property.yml'))
+  REPORT_TIME_MAP=YAML.load(File.open(Constant::PROJECT_ROOT+'/config/Time_Setting.yml'))
 
 
   def dispatch_tasks
     stocks = StockShortTermService.get_stocks
     puts stocks.length
     stock_report_info_crawler = StockReportInfoCrawler.new
+    get_count = 0
     stocks.each do |stock|
       begin
         next if stock.name.include? '银行'
         REPORT_TYPE.each do |type|
           begin
             # for year in 2006...2015
-              for year in 2014...2015
+            puts REPORT_TIME_MAP["year_begin"] + REPORT_TIME_MAP["year_end"]
+            for year in REPORT_TIME_MAP["year_begin"].to_i...REPORT_TIME_MAP["year_end"].to_i
               begin
                 stock_array = Array.new
                 url = "http://vip.stock.finance.sina.com.cn"
@@ -33,8 +36,9 @@ class StockReportInfoController
                 # puts stock_report_json
                 sleep(rand(3)+1)
                 stock_report_json.each do |elem|
-                  # for i in 0...elem["datas"].length
-                    for i in 0...1
+                  for i in 0...elem["datas"].length
+                    # for i in 0...1
+
                     if stock_array[i]==nil
                       stock_array[i]=Hash.new
                       stock_array[i]["code"]=stock.code
@@ -51,7 +55,11 @@ class StockReportInfoController
                   end
                 end
                 puts path
+                stock_array.delete_if { |s| s.report_date <REPORT_TIME_MAP["selected_time"] }
                 puts stock_array
+                if stock_array.length>0
+                  get_count+=1
+                end
                 if type=="vFD_ProfitStatement"
                   ProfitStatementReport.create(stock_array)
                 elsif type=="vFD_BalanceSheet"
@@ -73,6 +81,7 @@ class StockReportInfoController
       end
 
     end
+    STOCK_DAY_INFO_LOG.info "get count is #{get_count},the rate is "+(get_count/stocks.length.to_f).to_s
   end
 end
 

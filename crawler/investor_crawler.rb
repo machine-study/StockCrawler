@@ -49,6 +49,6 @@ agent.user_agent_alias = 'Linux Mozilla'
 invest_c = InvestorCrawler.new(agent)
 # hash = invest_c.crawl_institution_investors('http://data.eastmoney.com', '/zlsj/detail/201406/sh601318.html')
 # puts hash.to_s
-hash = invest_c.crawl_manage_investors('http://data.eastmoney.com', '/executive/xml/000793.xml')
+hash = invest_c.crawl_manage_investors('http://data.eastmoney.com', '/executive/xml/0008121.xml')
 puts hash.to_s
 

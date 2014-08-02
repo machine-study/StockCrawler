@@ -25,7 +25,8 @@ class FilterCollect
       end
 
     end
-    result.delete_if { |k, v| v==nil||v.current_quarterly_earnings==nil||v.annual_earnings_increase==nil||v.roe==nil||v.dar==nil||v.rs==nil }
+    # result.delete_if { |k, v| v==nil||v.current_quarterly_earnings==nil||v.annual_earnings_increase==nil||v.roe==nil||v.dar==nil||v.rs==nil }
+    result.delete_if { |k, v| v==nil||v.current_quarterly_earnings==nil||v.annual_earnings_increase==nil||v.roe==nil||v.dar==nil }
     result
   end
 

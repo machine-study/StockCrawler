@@ -5,20 +5,22 @@ require 'logger'
 require '../util/constant'
 require '../crawler/investor_crawler'
 class CanslimReport
+  PROPERTY_NAME_MAP=YAML.load(File.open(Constant::PROJECT_ROOT+'/config/Time_Setting.yml'))
+
   def report
 
     filter_collect = FilterCollect.new
     canslim_filter = CanslimFilter.new
     array = Array.new
-    learders_hash = FilterCollect.array_to_hash(canslim_filter.l_filter("2014-07-30 00:00:00"))
-    a_hash = FilterCollect.array_to_hash(canslim_filter.a_filter(5))
-    c_hash = FilterCollect.array_to_hash(canslim_filter.c_filter("2014-03-31 00:00:00", "2013-03-31 00:00:00"))
+    # learders_hash = FilterCollect.array_to_hash(canslim_filter.l_filter(PROPERTY_NAME_MAP["leaders_time"]))
+    a_hash = FilterCollect.array_to_hash(canslim_filter.a_filter(PROPERTY_NAME_MAP["a_years"]))
+    c_hash = FilterCollect.array_to_hash(canslim_filter.c_filter(PROPERTY_NAME_MAP["c_this_quarter"], PROPERTY_NAME_MAP["c_last_year_quarter"]))
     roe_dar_hash = FilterCollect.array_to_hash(OtherBasicFilter.new.roe_dar_filter)
 
 
-    array<<c_hash<<a_hash<<roe_dar_hash<<learders_hash
+    array<<c_hash<<a_hash<<roe_dar_hash
     result = filter_collect.filter_combine_result(array)
-    CANSLIM_LOG.info "these are filter combine result below:code     name            industry                annual_earnings_increase        current_quarterly_earnings              roe                      dar           rs    changePercent"
+    CANSLIM_LOG.info "count:"+result.length.to_s+"  these are filter combine result below:code     name            industry                annual_earnings_increase        current_quarterly_earnings              roe                      dar           rs    changePercent"
     agent =Mechanize.new
     agent.user_agent_alias = 'Linux Mozilla'
     invest_c = InvestorCrawler.new(agent)
@@ -32,7 +34,8 @@ class CanslimReport
       end
       institution_hash = invest_c.crawl_institution_investors('http://data.eastmoney.com', '/zlsj/detail/201406/'+symb.to_s+'.html')
       CANSLIM_LOG.info institution_hash
-      executive_hash = invest_c.crawl_manage_investors('http://data.eastmoney.com', '/executive/xml/'+value.code.to_s+'.xml')
+      sr = 'http://data.eastmoney.com', '/executive/xml/'+value.code.to_s+'.xml'
+      executive_hash = invest_c.crawl_manage_investors('http://data.eastmoney.com', '/executive/xml/'+value.code.to_s+'1.xml')
       CANSLIM_LOG.info executive_hash
     end
   end
