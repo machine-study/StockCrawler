@@ -49,7 +49,7 @@ class CanslimFilter
     stock_hash.each do |code, stock_array|
       stop = false
       stock_array.sort! { |a, b| b.report_date <=> a.report_date }
-      if stock_array.length<year_ago+1
+      if stock_array.length<year_ago
         CANSLIM_LOG.warn "code "+code+"length is less than "+year_ago.to_s
         next
       end
@@ -119,5 +119,5 @@ CANSLIM_LOG=Logger.new(Constant::PROJECT_ROOT+'/logs/canslim_filter.log', 0, 10 
 canslim_filter = CanslimFilter.new
 # canslim_filter.c_filter("2014-03-31 00:00:00", "2013-03-31 00:00:00")
 
-a_list = canslim_filter.a_filter(5)
-c_list = canslim_filter.c_filter("2014-03-31 00:00:00", "2013-03-31 00:00")
+a_list = canslim_filter.a_filter(4)
+# c_list = canslim_filter.c_filter("2014-03-31 00:00:00", "2013-03-31 00:00")
