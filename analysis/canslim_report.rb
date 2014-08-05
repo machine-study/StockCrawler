@@ -12,13 +12,13 @@ class CanslimReport
     filter_collect = FilterCollect.new
     canslim_filter = CanslimFilter.new
     array = Array.new
-    # learders_hash = FilterCollect.array_to_hash(canslim_filter.l_filter(PROPERTY_NAME_MAP["leaders_time"]))
+    learders_hash = FilterCollect.array_to_hash(canslim_filter.l_filter(PROPERTY_NAME_MAP["leaders_time"]))
     a_hash = FilterCollect.array_to_hash(canslim_filter.a_filter(PROPERTY_NAME_MAP["a_years"]))
     c_hash = FilterCollect.array_to_hash(canslim_filter.c_filter(PROPERTY_NAME_MAP["c_this_quarter"], PROPERTY_NAME_MAP["c_last_year_quarter"]))
     roe_dar_hash = FilterCollect.array_to_hash(OtherBasicFilter.new.roe_dar_filter)
 
 
-    array<<c_hash<<a_hash<<roe_dar_hash
+    array<<c_hash<<a_hash<<roe_dar_hash<<learders_hash
     result = filter_collect.filter_combine_result(array)
     CANSLIM_LOG.info "count:"+result.length.to_s+"  these are filter combine result below:code     name            industry                annual_earnings_increase        current_quarterly_earnings              roe                      dar           rs    changePercent"
     agent =Mechanize.new

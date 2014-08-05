@@ -91,7 +91,7 @@ class CanslimFilter
 
   def l_filter(report_time)
     stocks = StockLongTermService.get_stocks_by_time(report_time)
-    length = 0.2*stocks.length
+    length = 0.3*stocks.length
     stock_analysis_array = Array.new
     sub_stocks = stocks[0, length]
     for i in 0...sub_stocks.length
