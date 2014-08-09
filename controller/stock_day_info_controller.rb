@@ -41,7 +41,7 @@ class StockDayInfoController
         STOCK_DAY_INFO_LOG.info "finish dispatch url task of #{ sina_industries[i][0]}"
       end
     rescue Exception => e
-      STOCK_DAY_INFO_LOG.info "Error in dispatch url: #{e} "+"\n"+e.backtrace.join("\n")
+      STOCK_DAY_INFO_LOG.error "Error in dispatch url: #{e} "+"\n"+e.backtrace.join("\n")
     end
     STOCK_DAY_INFO_LOG.info "finish dispatch url tasks"
   end
