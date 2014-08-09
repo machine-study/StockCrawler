@@ -9,7 +9,7 @@ class SingleQuarterReportProcess
   def get_profit_statement_map(start_time, end_time)
     QUARTER_PROCESS_LOG.info "start to get_profit_statement_map"
     stock_map = Hash.new
-    ProfitStatementReport.where(report_date: start_time..end_time,is_single_quarter:false).find_each do |stock|
+    ProfitStatementReport.where(report_date: start_time..end_time, is_single_quarter: false).find_each do |stock|
       if stock_map[stock.code+stock.report_date.year.to_s]==nil
         stock_map[stock.code+stock.report_date.year.to_s]=Array.new
       end
@@ -76,7 +76,8 @@ class SingleQuarterReportProcess
     attrs_exist1 = stock_array[i].instance_variable_get("@attributes")
     attrs_exist2 = stock_array[i+1].instance_variable_get("@attributes")
     attrs_exist1.each_key do |key|
-      if attrs_exist1[key].kind_of? Numeric
+      if attrs_exist1[key].kind_of? Numeric && attrs_exist2[key].kind_of?
+        Numeric
         attrs[key]=attrs_exist1[key]-attrs_exist2[key]
       else
         attrs[key]=attrs_exist1[key]
@@ -85,7 +86,9 @@ class SingleQuarterReportProcess
     profit_statement_report.attributes =attrs
     earning_quarterly = stock_array[i].net_profit-stock_array[i+1].net_profit
     profit_statement_report.basic_earnings_per_share_yuan=earning_quarterly/(stock_array[i].net_profit/stock_array[i].basic_earnings_per_share_yuan)
-    profit_statement_report.diluted_earnings_per_share_yuan = earning_quarterly/(stock_array[i].net_profit/stock_array[i].diluted_earnings_per_share_yuan)
+    if stock_array[i].diluted_earnings_per_share_yuan!=nil
+      profit_statement_report.diluted_earnings_per_share_yuan = earning_quarterly/(stock_array[i].net_profit/stock_array[i].diluted_earnings_per_share_yuan)
+    end
     profit_statement_report.is_single_quarter=true
     profit_statement_report.id=nil
     profit_statement_report.save

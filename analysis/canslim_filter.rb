@@ -10,8 +10,8 @@ class CanslimFilter
   def c_filter(this_quarter, last_year_quarter)
     CANSLIM_LOG.info "These stocks C more than 25% below:code   name        industry         c_rate        "
     stock_analysis_array = Array.new
-    ProfitStatementReport.select("id,code,industry,name,diluted_earnings_per_share_yuan").where("report_date=?", this_quarter).find_each do |this_year_stock|
-      last_year_stock=ProfitStatementReport.select("id,code,industry,name,diluted_earnings_per_share_yuan").where("code=? AND report_date=?", this_year_stock.code, last_year_quarter).first
+    ProfitStatementReport.select("id,code,industry,name,diluted_earnings_per_share_yuan").where("report_date=? and is_single_quarter=?", this_quarter,true).find_each do |this_year_stock|
+      last_year_stock=ProfitStatementReport.select("id,code,industry,name,diluted_earnings_per_share_yuan").where("code=? AND report_date=? and is_single_quarter=?", this_year_stock.code, last_year_quarter,true).first
       if this_year_stock.diluted_earnings_per_share_yuan==nil || last_year_stock.diluted_earnings_per_share_yuan==nil ||last_year_stock.diluted_earnings_per_share_yuan==0
         next
       end
@@ -37,7 +37,7 @@ class CanslimFilter
     # stocks = ProfitStatementReport.select("id,code,industry,report_date,name,diluted_earnings_per_share_yuan").where("report_date=?",last_year)
     # stocks.each {|s| puts s.to_s}
     stock_hash=Hash.new
-    ProfitStatementReport.select("id,code,industry,report_date,name,diluted_earnings_per_share_yuan").where(report_date: last_n_year..last_year).find_each do |stock|
+    ProfitStatementReport.select("id,code,industry,report_date,name,diluted_earnings_per_share_yuan").where(report_date: last_n_year..last_year,is_single_quarter:false).find_each do |stock|
       if stock_hash[stock.code]==nil
         stock_hash[stock.code]=Array.new
       end

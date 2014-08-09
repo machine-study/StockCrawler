@@ -1,10 +1,11 @@
 #canslim
-leaders_time: 2014-07-30 00:00:00
+leaders_time: 2014-08-08 00:00:00
 a_years: 4
 c_this_quarter: 2014-03-31 00:00:00
 c_last_year_quarter: 2013-03-31 00:00:00
 
-#report
+#report_date begin and end
 year_begin: 2014
 year_end: 2015
+# report_date below the selected time will be omitted
 selected_time: 2014-06-30 00:00:00
