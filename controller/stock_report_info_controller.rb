@@ -15,7 +15,7 @@ class StockReportInfoController
 
 
   def dispatch_tasks
-    stocks = StockShortTermService.get_stocks
+    stocks = StockShortTermService.get_stocks(REPORT_TIME_MAP["selected_time"])
     puts stocks.length
     stock_report_info_crawler = StockReportInfoCrawler.new
     get_count = 0
@@ -55,10 +55,12 @@ class StockReportInfoController
                   end
                 end
                 puts path
-                stock_array.delete_if { |s| s.report_date <REPORT_TIME_MAP["selected_time"] }
+                stock_array.delete_if { |s| s["report_date"] < REPORT_TIME_MAP["selected_time"] }
                 puts stock_array
                 if stock_array.length>0
                   get_count+=1
+                else
+                  next
                 end
                 if type=="vFD_ProfitStatement"
                   ProfitStatementReport.create(stock_array)
@@ -66,6 +68,7 @@ class StockReportInfoController
                   BalanceSheetReport.create(stock_array)
                 elsif type=="vFD_CashFlow"
                   CashFlowReport.create(stock_array)
+                  stock.update_attribute('latest_report_date',stock_array[0]["report_date"])
                 end
               rescue Exception => e
                 STOCK_DAY_INFO_LOG.error "---Error in crawlReportInfo!: #{e}"+"\n"+e.backtrace.join("\n")

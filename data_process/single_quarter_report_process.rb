@@ -6,6 +6,7 @@ require 'logger'
 require '../db_connect'
 
 class SingleQuarterReportProcess
+  PROPERTY_NAME_MAP=YAML.load(File.open(Constant::PROJECT_ROOT+'/config/Time_Setting.yml'))
   def get_profit_statement_map(start_time, end_time)
     QUARTER_PROCESS_LOG.info "start to get_profit_statement_map"
     stock_map = Hash.new
@@ -36,10 +37,10 @@ class SingleQuarterReportProcess
         for i in 0...stock_array.length
           begin
             if i==stock_array.length-1
-              if stock_array[i].report_date.to_s.include?('03-31')
+              if stock_array[i].report_date.to_s.include?('03-31') && PROPERTY_NAME_MAP['include_first_quarter']
                 set_first_season(stock_array, i)
               else
-                QUARTER_PROCESS_LOG.warn " the last report is "+stock_array[i].report_date.to_s
+                QUARTER_PROCESS_LOG.warn " the last report is "+stock_array[i].report_date.to_s+" it is omitted"
               end
               break
             end
@@ -95,9 +96,10 @@ class SingleQuarterReportProcess
   end
 
 end
+PROPERTY_NAME_MAP=YAML.load(File.open(Constant::PROJECT_ROOT+'/config/Time_Setting.yml'))
 QUARTER_PROCESS_LOG=Logger.new(Constant::PROJECT_ROOT+'/logs/quarter_process.log', 0, 10 * 1024 * 1024)
 single_quarter_report_process = SingleQuarterReportProcess.new
-stock_map = single_quarter_report_process.get_profit_statement_map("2006-01-31 00:00:00", "2014-12-31 00:00:00")
+stock_map = single_quarter_report_process.get_profit_statement_map(PROPERTY_NAME_MAP['calculate_time_begin'],PROPERTY_NAME_MAP['calculate_time_end'])
 single_quarter_report_process.set_quarterly_profit_statement(stock_map)
 
 # profit_statement_report = ProfitStatementReport.new
