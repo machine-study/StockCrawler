@@ -7,6 +7,7 @@ require '../db_connect'
 
 class SingleQuarterReportProcess
   PROPERTY_NAME_MAP=YAML.load(File.open(Constant::PROJECT_ROOT+'/config/Time_Setting.yml'))
+
   def get_profit_statement_map(start_time, end_time)
     QUARTER_PROCESS_LOG.info "start to get_profit_statement_map"
     stock_map = Hash.new
@@ -77,8 +78,7 @@ class SingleQuarterReportProcess
     attrs_exist1 = stock_array[i].instance_variable_get("@attributes")
     attrs_exist2 = stock_array[i+1].instance_variable_get("@attributes")
     attrs_exist1.each_key do |key|
-      if attrs_exist1[key].kind_of? Numeric && attrs_exist2[key].kind_of?
-        Numeric
+      if attrs_exist1[key].kind_of?(Numeric) && attrs_exist2[key].kind_of?(Numeric)
         attrs[key]=attrs_exist1[key]-attrs_exist2[key]
       else
         attrs[key]=attrs_exist1[key]
@@ -99,7 +99,7 @@ end
 PROPERTY_NAME_MAP=YAML.load(File.open(Constant::PROJECT_ROOT+'/config/Time_Setting.yml'))
 QUARTER_PROCESS_LOG=Logger.new(Constant::PROJECT_ROOT+'/logs/quarter_process.log', 0, 10 * 1024 * 1024)
 single_quarter_report_process = SingleQuarterReportProcess.new
-stock_map = single_quarter_report_process.get_profit_statement_map(PROPERTY_NAME_MAP['calculate_time_begin'],PROPERTY_NAME_MAP['calculate_time_end'])
+stock_map = single_quarter_report_process.get_profit_statement_map(PROPERTY_NAME_MAP['calculate_time_begin'], PROPERTY_NAME_MAP['calculate_time_end'])
 single_quarter_report_process.set_quarterly_profit_statement(stock_map)
 
 # profit_statement_report = ProfitStatementReport.new

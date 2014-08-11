@@ -50,7 +50,7 @@ class CanslimFilter
       stop = false
       stock_array.sort! { |a, b| b.report_date <=> a.report_date }
       if stock_array.length<year_ago
-        CANSLIM_LOG.warn "code "+code+"length is less than "+year_ago.to_s
+        CANSLIM_LOG.warn "code "+code+" length is less than "+year_ago.to_s
         next
       end
       for i in 0...stock_array.length-1
@@ -91,7 +91,7 @@ class CanslimFilter
 
   def l_filter(report_time)
     stocks = StockLongTermService.get_stocks_by_time(report_time)
-    length = 0.3*stocks.length
+    length = 0.7*stocks.length
     stock_analysis_array = Array.new
     sub_stocks = stocks[0, length]
     for i in 0...sub_stocks.length

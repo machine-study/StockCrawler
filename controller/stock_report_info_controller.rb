@@ -45,6 +45,7 @@ class StockReportInfoController
                       stock_array[i]["name"]=stock.name
                       stock_array[i]["symbol"]=stock.symbol
                       stock_array[i]["industry"]=stock.industry
+                      stock_array[i]["is_single_quarter"]=false
                     end
                     next if elem["name"].rstrip.empty?
                     elem["name"] = elem["name"].gsub("其中:", "").gsub("其中：", "")
