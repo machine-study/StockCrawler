@@ -22,11 +22,11 @@ class StockReportInfoController
     stocks.each do |stock|
       begin
         next if stock.name.include? '银行'
-        REPORT_TYPE.each do |type|
+        for year in REPORT_TIME_MAP["year_begin"].to_i...REPORT_TIME_MAP["year_end"].to_i
           begin
             # for year in 2006...2015
-            puts REPORT_TIME_MAP["year_begin"] + REPORT_TIME_MAP["year_end"]
-            for year in REPORT_TIME_MAP["year_begin"].to_i...REPORT_TIME_MAP["year_end"].to_i
+            puts REPORT_TIME_MAP["year_begin"].to_s+"-" + REPORT_TIME_MAP["year_end"].to_s
+            REPORT_TYPE.each do |type|
               begin
                 stock_array = Array.new
                 url = "http://vip.stock.finance.sina.com.cn"
@@ -61,7 +61,7 @@ class StockReportInfoController
                 if stock_array.length>0
                   get_count+=1
                 else
-                  next
+                  break
                 end
                 if type=="vFD_ProfitStatement"
                   ProfitStatementReport.create(stock_array)
@@ -69,7 +69,7 @@ class StockReportInfoController
                   BalanceSheetReport.create(stock_array)
                 elsif type=="vFD_CashFlow"
                   CashFlowReport.create(stock_array)
-                  stock.update_attribute('latest_report_date',stock_array[0]["report_date"])
+                  stock.update_attribute('latest_report_date', stock_array[0]["report_date"])
                 end
               rescue Exception => e
                 STOCK_DAY_INFO_LOG.error "---Error in crawlReportInfo!: #{e}"+"\n"+e.backtrace.join("\n")

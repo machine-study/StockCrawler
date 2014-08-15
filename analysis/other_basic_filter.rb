@@ -15,7 +15,7 @@ class OtherBasicFilter
         # ProfitStatementReport.select("id,code,industry,report_date,name,net_profit,diluted_earnings_per_share_yuan").where("report_date=? and code=?", last_year, b_stock.code).find_each do |p_stock|
         CashFlowReport.select("id,code,industry,report_date,name,net_profit,net_amount_of_cash_flow_that_the_business_activities_generate").where("code=? and report_date=? and is_single_quarter=?", b_stock.code,last_year,false).find_each do |p_stock|
           roe = p_stock.net_profit/b_stock.shareholders_equity_combined
-          if roe>0.17 && p_stock.net_amount_of_cash_flow_that_the_business_activities_generate>p_stock.net_profit
+          if roe>0.1 && p_stock.net_amount_of_cash_flow_that_the_business_activities_generate>p_stock.net_profit
             stock_analysis = StockAnalysis.new
             stock_analysis.code = p_stock.code
             stock_analysis.name = p_stock.name
