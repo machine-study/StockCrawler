@@ -9,7 +9,8 @@ year_begin: 2014
 year_end: 2015
 # report_date below the selected time will be omitted
 selected_time: 2014-06-30 00:00:00
+
 #single quarter report process
-calculate_time_begin: 2014-01-31 00:00:00
+calculate_time_begin: 2006-01-31 00:00:00
 calculate_time_end: 2014-12-31 00:00:00
-include_first_quarter: false
+include_first_quarter: true

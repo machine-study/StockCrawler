@@ -53,13 +53,13 @@ class CanslimFilter
         CANSLIM_LOG.warn "code "+code+" length is less than "+year_ago.to_s
         next
       end
-      for i in 0...stock_array.length-1
-        inc_per_year = (stock_array[i].diluted_earnings_per_share_yuan-stock_array[i+1].diluted_earnings_per_share_yuan)/stock_array[i+1].diluted_earnings_per_share_yuan
-        if inc_per_year<0.25
-          stop=true
-          break
-        end
-      end
+      # for i in 0...stock_array.length-1
+      #   inc_per_year = (stock_array[i].diluted_earnings_per_share_yuan-stock_array[i+1].diluted_earnings_per_share_yuan)/stock_array[i+1].diluted_earnings_per_share_yuan
+      #   if inc_per_year<0.25
+      #     stop=true
+      #     break
+      #   end
+      # end
       if stop
         next
       end

@@ -85,10 +85,10 @@ class SingleQuarterReportProcess
       end
     end
     profit_statement_report.attributes =attrs
-    earning_quarterly = stock_array[i].net_profit-stock_array[i+1].net_profit
-    profit_statement_report.basic_earnings_per_share_yuan=earning_quarterly/(stock_array[i].net_profit/stock_array[i].basic_earnings_per_share_yuan)
+    earning_quarterly = stock_array[i].net_profit_attributable_to_parent_company_owners-stock_array[i+1].net_profit_attributable_to_parent_company_owners
+    profit_statement_report.basic_earnings_per_share_yuan=earning_quarterly/(stock_array[i].net_profit_attributable_to_parent_company_owners/stock_array[i].basic_earnings_per_share_yuan)
     if stock_array[i].diluted_earnings_per_share_yuan!=nil
-      profit_statement_report.diluted_earnings_per_share_yuan = earning_quarterly/(stock_array[i].net_profit/stock_array[i].diluted_earnings_per_share_yuan)
+      profit_statement_report.diluted_earnings_per_share_yuan = earning_quarterly/(stock_array[i].net_profit_attributable_to_parent_company_owners/stock_array[i].diluted_earnings_per_share_yuan)
     end
     profit_statement_report.is_single_quarter=true
     profit_statement_report.id=nil
